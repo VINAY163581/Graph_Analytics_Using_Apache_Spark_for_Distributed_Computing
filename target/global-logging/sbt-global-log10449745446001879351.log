@@ -1,0 +1,145 @@
+[debug] > Exec(early(addDefaultCommands), None, None)
+[debug] > Exec(addDefaultCommands, None, None)
+[debug] > Exec(early(initialize), None, None)
+[debug] > Exec(initialize, None, None)
+[debug] > Exec(boot, None, None)
+[debug] > Exec(writeSbtVersion, None, None)
+[debug] > Exec(reload, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(onFailure loadFailed, None, None)
+[debug] > Exec(loadp, None, None)
+[info] welcome to sbt 1.10.2 (Oracle Corporation Java 23.0.1)
+[debug] Load.defaultLoad until apply took 26.526667ms
+[debug]           Load.loadUnit: plugins took 28.115ms
+[debug]           Load.loadUnit: defsScala took 0.195834ms
+[debug] [Loading] Scanning directory /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/project
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/project, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 5.029333 ms
+[debug]               Load.resolveProject(graph_analytics_using_apache_spark_for_distributed_computing-build) took 15.404208ms
+[debug]             Load.loadTransitive: finalizeProject(Project(id graph_analytics_using_apache_spark_for_distributed_computing-build, base: /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/project, plugins: List(<none>))) took 28.7505ms
+[debug] [Loading] Done in /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/project, returning: (graph_analytics_using_apache_spark_for_distributed_computing-build)
+[debug]           Load.loadUnit: loadedProjectsRaw took 37.478417ms
+[debug]           Load.loadUnit: cleanEvalClasses took 0.061125ms
+[debug]         Load.loadUnit(file:/Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/project/, ...) took 68.029541ms
+[debug]       Load.apply: load took 324.397083ms
+[debug]       Load.apply: resolveProjects took 1.9815ms
+[debug]       Load.apply: finalTransforms took 24.7855ms
+[debug]       Load.apply: config.delegates took 1.789167ms
+[debug]       Load.apply: Def.make(settings)... took 158.968167ms
+[debug]       Load.apply: structureIndex took 38.985ms
+[debug]       Load.apply: mkStreams took 0.870208ms
+[info] loading project definition from /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/project
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug]     Load.loadUnit: plugins took 853.747792ms
+[debug]     Load.loadUnit: defsScala took 0.001458ms
+[debug] [Loading] Scanning directory /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing
+[debug]       Load.loadUnit: mkEval took 2.155042ms
+[debug] Type error in expression
+[debug] 	at sbt.compiler.Eval.checkError(Eval.scala:502)
+[debug] 	at sbt.compiler.Eval.compileAndLoad(Eval.scala:275)
+[debug] 	at sbt.compiler.Eval.compileAndLoad(Eval.scala:242)
+[debug] 	at sbt.compiler.Eval.evalCommon(Eval.scala:216)
+[debug] 	at sbt.compiler.Eval.evalDefinitions(Eval.scala:167)
+[debug] 	at sbt.internal.EvaluateConfigurations$.evaluateDefinitions(EvaluateConfigurations.scala:327)
+[debug] 	at sbt.internal.EvaluateConfigurations$.evaluateSbtFile(EvaluateConfigurations.scala:153)
+[debug] 	at sbt.internal.Load$.loadSettingsFile$1(Load.scala:1119)
+[debug] 	at sbt.internal.Load$.$anonfun$discoverProjects$2(Load.scala:1129)
+[debug] 	at scala.collection.MapLike.getOrElse(MapLike.scala:131)
+[debug] 	at scala.collection.MapLike.getOrElse$(MapLike.scala:129)
+[debug] 	at scala.collection.AbstractMap.getOrElse(Map.scala:65)
+[debug] 	at sbt.internal.Load$.memoLoadSettingsFile$1(Load.scala:1128)
+[debug] 	at sbt.internal.Load$.$anonfun$discoverProjects$4(Load.scala:1136)
+[debug] 	at scala.collection.immutable.List.map(List.scala:293)
+[debug] 	at sbt.internal.Load$.loadFiles$1(Load.scala:1136)
+[debug] 	at sbt.internal.Load$.discoverProjects(Load.scala:1150)
+[debug] 	at sbt.internal.Load$.discover$1(Load.scala:902)
+[debug] 	at sbt.internal.Load$.loadTransitive(Load.scala:956)
+[debug] 	at sbt.internal.Load$.loadProjects$1(Load.scala:739)
+[debug] 	at sbt.internal.Load$.$anonfun$loadUnit$12(Load.scala:742)
+[debug] 	at sbt.internal.Load$.timed(Load.scala:1407)
+[debug] 	at sbt.internal.Load$.$anonfun$loadUnit$1(Load.scala:742)
+[debug] 	at sbt.internal.Load$.timed(Load.scala:1407)
+[debug] 	at sbt.internal.Load$.loadUnit(Load.scala:695)
+[debug] 	at sbt.internal.Load$.$anonfun$builtinLoader$4(Load.scala:493)
+[debug] 	at sbt.internal.BuildLoader$.$anonfun$componentLoader$5(BuildLoader.scala:181)
+[debug] 	at sbt.internal.BuildLoader.apply(BuildLoader.scala:246)
+[debug] 	at sbt.internal.Load$.loadURI$1(Load.scala:555)
+[debug] 	at sbt.internal.Load$.loadAll(Load.scala:571)
+[debug] 	at sbt.internal.Load$.loadURI(Load.scala:501)
+[debug] 	at sbt.internal.Load$.load(Load.scala:480)
+[debug] 	at sbt.internal.Load$.$anonfun$apply$1(Load.scala:242)
+[debug] 	at sbt.internal.Load$.timed(Load.scala:1407)
+[debug] 	at sbt.internal.Load$.apply(Load.scala:242)
+[debug] 	at sbt.internal.Load$.defaultLoad(Load.scala:57)
+[debug] 	at sbt.BuiltinCommands$.liftedTree1$1(Main.scala:964)
+[debug] 	at sbt.BuiltinCommands$.doLoadProject(Main.scala:964)
+[debug] 	at sbt.BuiltinCommands$.$anonfun$loadProjectImpl$2(Main.scala:917)
+[debug] 	at sbt.Command$.$anonfun$applyEffect$4(Command.scala:151)
+[debug] 	at sbt.Command$.$anonfun$applyEffect$2(Command.scala:146)
+[debug] 	at sbt.Command$.process(Command.scala:194)
+[debug] 	at sbt.MainLoop$.$anonfun$processCommand$7(MainLoop.scala:267)
+[debug] 	at scala.Option.getOrElse(Option.scala:189)
+[debug] 	at sbt.MainLoop$.process$1(MainLoop.scala:267)
+[debug] 	at sbt.MainLoop$.processCommand(MainLoop.scala:314)
+[debug] 	at sbt.MainLoop$.$anonfun$next$5(MainLoop.scala:171)
+[debug] 	at sbt.State$StateOpsImpl$.runCmd$1(State.scala:290)
+[debug] 	at sbt.State$StateOpsImpl$.process$extension(State.scala:326)
+[debug] 	at sbt.MainLoop$.$anonfun$next$4(MainLoop.scala:171)
+[debug] 	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:24)
+[debug] 	at sbt.MainLoop$.next(MainLoop.scala:171)
+[debug] 	at sbt.MainLoop$.run(MainLoop.scala:152)
+[debug] 	at sbt.MainLoop$.$anonfun$runWithNewLog$1(MainLoop.scala:127)
+[debug] 	at sbt.io.Using.apply(Using.scala:28)
+[debug] 	at sbt.MainLoop$.runWithNewLog(MainLoop.scala:120)
+[debug] 	at sbt.MainLoop$.runAndClearLast(MainLoop.scala:74)
+[debug] 	at sbt.MainLoop$.runLoggedLoop(MainLoop.scala:59)
+[debug] 	at sbt.MainLoop$.runLogged(MainLoop.scala:50)
+[debug] 	at sbt.StandardMain$.runManaged(Main.scala:225)
+[debug] 	at sbt.xMain$.$anonfun$run$11(Main.scala:135)
+[debug] 	at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+[debug] 	at scala.Console$.withIn(Console.scala:230)
+[debug] 	at sbt.internal.util.Terminal$.withIn(Terminal.scala:610)
+[debug] 	at sbt.internal.util.Terminal$.$anonfun$withStreams$1(Terminal.scala:390)
+[debug] 	at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+[debug] 	at scala.Console$.withOut(Console.scala:167)
+[debug] 	at sbt.internal.util.Terminal$.$anonfun$withOut$2(Terminal.scala:600)
+[debug] 	at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)
+[debug] 	at scala.Console$.withErr(Console.scala:196)
+[debug] 	at sbt.internal.util.Terminal$.withOut(Terminal.scala:600)
+[debug] 	at sbt.internal.util.Terminal$.withStreams(Terminal.scala:390)
+[debug] 	at sbt.xMain$.withStreams$1(Main.scala:88)
+[debug] 	at sbt.xMain$.run(Main.scala:123)
+[debug] 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+[debug] 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[debug] 	at sbt.internal.XMainConfiguration.run(XMainConfiguration.java:59)
+[debug] 	at sbt.xMain.run(Main.scala:47)
+[debug] 	at xsbt.boot.Launch$.run$$anonfun$1(Launch.scala:132)
+[debug] 	at xsbt.boot.Launch$.withContextLoader(Launch.scala:157)
+[debug] 	at xsbt.boot.Launch$.run(Launch.scala:132)
+[debug] 	at xsbt.boot.Launch$.apply$$anonfun$1(Launch.scala:43)
+[debug] 	at xsbt.boot.Launch$.launch(Launch.scala:142)
+[debug] 	at xsbt.boot.Launch$.apply(Launch.scala:43)
+[debug] 	at xsbt.boot.Launch$.apply(Launch.scala:24)
+[debug] 	at xsbt.boot.Boot$.runImpl(Boot.scala:73)
+[debug] 	at xsbt.boot.Boot$.run(Boot.scala:69)
+[debug] 	at xsbt.boot.Boot$.main(Boot.scala:23)
+[debug] 	at xsbt.boot.Boot.main(Boot.scala)
+[error] sbt.compiler.EvalException: Type error in expression
+[error] sbt.compiler.EvalException: Type error in expression
+[error] Use 'last' for the full log.
+[debug] > Exec(loadFailed, None, None)
+[warn] Project loading failed: (r)etry, (q)uit, (l)ast, or (i)gnore? (default: r)

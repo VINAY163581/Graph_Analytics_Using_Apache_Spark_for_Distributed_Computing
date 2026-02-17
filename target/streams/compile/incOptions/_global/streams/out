@@ -1,0 +1,62 @@
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/target/scala-2.12/classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/target/scala-2.12/classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TemporalPageRankJob$Config$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankCore$PageRankResult$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SkewBenchmarkJob$BenchmarkRow.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TriangleCommunityJob$$typecreator6$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$TriangleCmd.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SkewBenchmarkJob$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TemporalPageRankJob$$typecreator10$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankCore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TemporalPageRankJob$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	GraphAnalytics$Config$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SparkFactory.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TemporalPageRankJob.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	GraphAnalytics$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TriangleCommunityJob$Config$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TemporalPageRankJob$Config.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$TriangleCmd$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SkewBenchmarkJob$Config.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankCore$$typecreator6$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$PageRankCmd$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankJob$$typecreator6$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimeUtils$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	GraphLoader$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	IOUtils.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$SkewCmd$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SkewBenchmarkJob$BenchmarkRow$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$CliConfig.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SkewBenchmarkJob$Config$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	IOUtils$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	GraphLoader.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TimeUtils.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SparkFactory$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TriangleCommunityJob$Config.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$PageRankCmd.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	GraphAnalytics.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	GraphAnalytics$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankJob$Config$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankJob$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankJob.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$TemporalCmd.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SkewBenchmarkJob$$typecreator6$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$CliConfig$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	GraphAnalytics$Config.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$TemporalCmd$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankCore$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$SkewCmd.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankJob$Config.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TriangleCommunityJob.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SkewBenchmarkJob.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$Command.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	TriangleCommunityJob$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	PageRankCore$PageRankResult.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /Users/vinaykumarreddythangella/Documents/Projects/Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing/target/scala-2.12/classes.bak[0m
