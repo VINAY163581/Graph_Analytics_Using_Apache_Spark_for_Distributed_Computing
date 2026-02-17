@@ -7,3 +7,4 @@ project/project/
 *.class
 output/
 .DS_Store
+.data/
