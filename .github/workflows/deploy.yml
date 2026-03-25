@@ -126,6 +126,7 @@ jobs:
             --cluster="$CLUSTER_NAME" \
             --class=GraphAnalytics \
             --jars="gs://${BUCKET_NAME}/jars/${JAR_NAME}" \
+            --properties=spark.driver.memory=4g,spark.executor.memory=4g,spark.executor.cores=2,spark.sql.adaptive.enabled=false,spark.sql.maxPlanStringLength=10000 \
             -- \
             --edges="gs://${BUCKET_NAME}/data/sample/edges.csv" \
             --nodes="gs://${BUCKET_NAME}/data/sample/nodes.csv" \
