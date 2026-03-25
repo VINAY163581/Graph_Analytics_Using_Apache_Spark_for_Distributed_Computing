@@ -64,7 +64,7 @@ jobs:
       - name: Upload data to GCS
         run: |
           if [ -d "data" ]; then
-            gcloud storage cp data/* "gs://${BUCKET_NAME}/data/"
+            gcloud storage cp --recursive data "gs://${BUCKET_NAME}/"
           else
             echo "data folder not found"
             exit 1
@@ -77,4 +77,8 @@ jobs:
             --region="$REGION" \
             --cluster="$CLUSTER_NAME" \
             --class=GraphAnalytics \
-            --jars="gs://${BUCKET_NAME}/jars/${JAR_NAME}"
+            --jars="gs://${BUCKET_NAME}/jars/${JAR_NAME}" \
+            -- \
+            --edges="gs://${BUCKET_NAME}/data/sample/edges.csv" \
+            --nodes="gs://${BUCKET_NAME}/data/sample/nodes.csv" \
+            --output="gs://${BUCKET_NAME}/output"
