@@ -9,6 +9,13 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  PROJECT_ID: project-34c13448-074a-417a-b64
+  REGION: northamerica-northeast1
+  CLUSTER_NAME: graph-cluster
+  BUCKET_NAME: vinay-graph-dataproc-6731
+  JAR_NAME: spark-graph-analytics-assembly-0.1.0.jar
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -20,9 +27,9 @@ jobs:
       - name: Authenticate to Google Cloud (WIF)
         uses: google-github-actions/auth@v2
         with:
-          token_format: "access_token"
-          workload_identity_provider: "projects/150195794927/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
-          service_account: "github-ci@project-34c13448-074a-417a-b64.iam.gserviceaccount.com"
+          token_format: access_token
+          workload_identity_provider: projects/150195794927/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: github-ci@project-34c13448-074a-417a-b64.iam.gserviceaccount.com
 
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v2
@@ -30,14 +37,14 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
+          distribution: temurin
           java-version: "17"
 
       - name: Setup sbt
         uses: sbt/setup-sbt@v1
 
       - name: Set GCP project
-        run: gcloud config set project project-34c13448-074a-417a-b64
+        run: gcloud config set project "$PROJECT_ID"
 
       - name: Build fat jar
         run: sbt clean assembly
@@ -45,18 +52,29 @@ jobs:
       - name: Upload jar to GCS
         run: |
           JAR_PATH=$(find target -name "*assembly*.jar" | head -n 1)
+
+          if [ -z "$JAR_PATH" ]; then
+            echo "Assembly jar not found"
+            exit 1
+          fi
+
           echo "Uploading jar: $JAR_PATH"
-          gcloud storage cp "$JAR_PATH" gs://YOUR_GRAPH_BUCKET/jars/spark-graph-analytics-assembly-0.1.0.jar
+          gcloud storage cp "$JAR_PATH" "gs://${BUCKET_NAME}/jars/${JAR_NAME}"
 
       - name: Upload data to GCS
         run: |
-          gcloud storage cp data/* gs://YOUR_GRAPH_BUCKET/data/
+          if [ -d "data" ]; then
+            gcloud storage cp data/* "gs://${BUCKET_NAME}/data/"
+          else
+            echo "data folder not found"
+            exit 1
+          fi
 
       - name: Submit Spark job to Dataproc
         run: |
           gcloud dataproc jobs submit spark \
-            --project=project-34c13448-074a-417a-b64 \
-            --region=YOUR_REGION \
-            --cluster=YOUR_CLUSTER_NAME \
+            --project="$PROJECT_ID" \
+            --region="$REGION" \
+            --cluster="$CLUSTER_NAME" \
             --class=GraphAnalytics \
-            --jars=gs://YOUR_GRAPH_BUCKET/jars/spark-graph-analytics-assembly-0.1.0.jar
+            --jars="gs://${BUCKET_NAME}/jars/${JAR_NAME}"
