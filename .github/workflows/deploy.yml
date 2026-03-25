@@ -49,6 +49,53 @@ jobs:
       - name: Build fat jar
         run: sbt clean assembly
 
+      - name: Generate sample graph input files
+        run: |
+          mkdir -p data/sample
+
+          python3 << 'PY'
+          import csv
+          import random
+          import os
+
+          os.makedirs("data/sample", exist_ok=True)
+
+          node_count = 10000
+          edge_count = 100000
+          days = 10
+          per_day = edge_count // days
+          rnd = random.Random(17)
+
+          with open("data/sample/nodes.csv", "w", newline="") as nf:
+              writer = csv.writer(nf)
+              writer.writerow(["node_id", "type", "region"])
+              for n in range(node_count):
+                  region = f"r{(n % 5) + 1}"
+                  writer.writerow([n, "user", region])
+
+          with open("data/sample/edges.csv", "w", newline="") as ef:
+              writer = csv.writer(ef)
+              writer.writerow(["src", "dst", "timestamp"])
+              for day in range(1, days + 1):
+                  date = f"2026-01-{day:02d} 00:00:00"
+
+                  for i in range(500):
+                      src = i % 20
+                      dst = rnd.randrange(node_count)
+                      while dst == src:
+                          dst = rnd.randrange(node_count)
+                      writer.writerow([src, dst, date])
+
+                  for _ in range(per_day):
+                      src = rnd.randrange(node_count)
+                      dst = rnd.randrange(node_count)
+                      while dst == src:
+                          dst = rnd.randrange(node_count)
+                      writer.writerow([src, dst, date])
+          PY
+
+          ls -R data/sample
+
       - name: Upload jar to GCS
         run: |
           JAR_PATH=$(find target -name "*assembly*.jar" | head -n 1)
@@ -65,6 +112,7 @@ jobs:
         run: |
           if [ -d "data" ]; then
             gcloud storage cp --recursive data "gs://${BUCKET_NAME}/"
+            gcloud storage ls --recursive "gs://${BUCKET_NAME}/data/"
           else
             echo "data folder not found"
             exit 1
