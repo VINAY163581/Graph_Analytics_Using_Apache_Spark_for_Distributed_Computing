@@ -12,7 +12,7 @@ permissions:
 env:
   PROJECT_ID: project-34c13448-074a-417a-b64
   REGION: northamerica-northeast1
-  CLUSTER_NAME: graph-cluster
+  CLUSTER_NAME: ecommerce-cluster
   BUCKET_NAME: vinay-graph-dataproc-6731
   JAR_NAME: spark-graph-analytics-assembly-0.1.0.jar
 
