@@ -60,9 +60,9 @@ jobs:
 
           os.makedirs("data/sample", exist_ok=True)
 
-          node_count = 10000
-          edge_count = 100000
-          days = 10
+          node_count = 3000
+          edge_count = 20000
+          days = 5
           per_day = edge_count // days
           rnd = random.Random(17)
 
@@ -79,7 +79,7 @@ jobs:
               for day in range(1, days + 1):
                   date = f"2026-01-{day:02d} 00:00:00"
 
-                  for i in range(500):
+                  for i in range(100):
                       src = i % 20
                       dst = rnd.randrange(node_count)
                       while dst == src:
@@ -126,8 +126,14 @@ jobs:
             --cluster="$CLUSTER_NAME" \
             --class=GraphAnalytics \
             --jars="gs://${BUCKET_NAME}/jars/${JAR_NAME}" \
-            --properties=spark.driver.memory=4g,spark.executor.memory=4g,spark.executor.cores=2,spark.sql.adaptive.enabled=false,spark.sql.maxPlanStringLength=10000 \
+            --properties=spark.driver.memory=8g,spark.executor.memory=4g,spark.executor.cores=2,spark.sql.adaptive.enabled=false,spark.sql.maxPlanStringLength=10000 \
             -- \
             --edges="gs://${BUCKET_NAME}/data/sample/edges.csv" \
             --nodes="gs://${BUCKET_NAME}/data/sample/nodes.csv" \
-            --output="gs://${BUCKET_NAME}/output"
+            --output="gs://${BUCKET_NAME}/output" \
+            --runCommunity=false \
+            --runTemporal=false \
+            --runScale=false \
+            --runSkew=false \
+            --iterations=5 \
+            --topN=10
