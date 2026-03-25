@@ -54,6 +54,12 @@ object GraphAnalytics {
     }
   }
 
+  private def isGcsPath(path: String): Boolean =
+    path.startsWith("gs://")
+
+  private def localFileExists(path: String): Boolean =
+    !isGcsPath(path) && Files.exists(Paths.get(path))
+
   private def runAll(config: Config): Unit = {
     ensureInputData(config)
 
@@ -61,9 +67,16 @@ object GraphAnalytics {
     import spark.implicits._
 
     try {
-      val edges = GraphLoader.loadEdges(spark, config.edges, hasTimestamp = true).select("src", "dst", "timestamp").cache()
+      val edges = GraphLoader
+        .loadEdges(spark, config.edges, hasTimestamp = true)
+        .select("src", "dst", "timestamp")
+        .cache()
+
+      val useNodesFile =
+        isGcsPath(config.nodes) || localFileExists(config.nodes)
+
       val nodes =
-        if (Files.exists(Paths.get(config.nodes))) GraphLoader.loadNodes(spark, config.nodes)
+        if (useNodesFile) GraphLoader.loadNodes(spark, config.nodes)
         else GraphLoader.deriveNodes(edges)
 
       val nodeCount = nodes.count()
@@ -74,7 +87,7 @@ object GraphAnalytics {
         spark,
         PageRankJob.Config(
           edgesPath = config.edges,
-          nodesPath = if (Files.exists(Paths.get(config.nodes))) Some(config.nodes) else None,
+          nodesPath = if (useNodesFile) Some(config.nodes) else None,
           outputPath = config.output,
           iterations = config.iterations,
           damping = config.damping,
@@ -222,6 +235,11 @@ object GraphAnalytics {
   }
 
   private def ensureInputData(config: Config): Unit = {
+    if (isGcsPath(config.edges) || isGcsPath(config.nodes)) {
+      println(s"Using cloud input paths: edges=${config.edges}, nodes=${config.nodes}")
+      return
+    }
+
     val edgesPath = Paths.get(config.edges)
     val nodesPath = Paths.get(config.nodes)
 
