@@ -1,23 +1,62 @@
-name: Scala Spark CI
+name: Deploy Graph Analytics to Dataproc
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 17
+      - name: Authenticate to Google Cloud (WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          token_format: "access_token"
+          workload_identity_provider: "projects/150195794927/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "github-ci@project-34c13448-074a-417a-b64.iam.gserviceaccount.com"
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
 
-      - name: Build
-        run: sbt compile
+      - name: Setup sbt
+        uses: sbt/setup-sbt@v1
+
+      - name: Set GCP project
+        run: gcloud config set project project-34c13448-074a-417a-b64
+
+      - name: Build fat jar
+        run: sbt clean assembly
+
+      - name: Upload jar to GCS
+        run: |
+          JAR_PATH=$(find target -name "*assembly*.jar" | head -n 1)
+          echo "Uploading jar: $JAR_PATH"
+          gcloud storage cp "$JAR_PATH" gs://YOUR_GRAPH_BUCKET/jars/spark-graph-analytics-assembly-0.1.0.jar
+
+      - name: Upload data to GCS
+        run: |
+          gcloud storage cp data/* gs://YOUR_GRAPH_BUCKET/data/
+
+      - name: Submit Spark job to Dataproc
+        run: |
+          gcloud dataproc jobs submit spark \
+            --project=project-34c13448-074a-417a-b64 \
+            --region=YOUR_REGION \
+            --cluster=YOUR_CLUSTER_NAME \
+            --class=GraphAnalytics \
+            --jars=gs://YOUR_GRAPH_BUCKET/jars/spark-graph-analytics-assembly-0.1.0.jar

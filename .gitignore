@@ -1,4 +1,4 @@
-.target/
+target/
 project/target/
 project/project/
 .metals/
@@ -8,3 +8,4 @@ project/project/
 output/
 .DS_Store
 .data/
+*.jar
