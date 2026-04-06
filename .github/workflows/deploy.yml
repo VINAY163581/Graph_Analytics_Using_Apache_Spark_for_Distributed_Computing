@@ -137,3 +137,17 @@ jobs:
             --runSkew=false \
             --iterations=5 \
             --topN=10
+
+      - name: Download output for dashboard generation
+        run: |
+          rm -rf dashboard-input dashboard-output
+          mkdir -p dashboard-input
+          gcloud storage cp --recursive "gs://${BUCKET_NAME}/output" dashboard-input
+
+      - name: Generate HTML dashboard
+        run: |
+          python3 scripts/generate_dashboard.py --input dashboard-input/output --output dashboard-output
+
+      - name: Upload dashboard to GCS
+        run: |
+          gcloud storage cp --recursive dashboard-output "gs://${BUCKET_NAME}/dashboard"
