@@ -12,7 +12,7 @@ permissions:
 env:
   PROJECT_ID: project-34c13448-074a-417a-b64
   REGION: northamerica-northeast1
-  CLUSTER_NAME: ecommerce-cluster
+  CLUSTER_NAME: distributed-system
   BUCKET_NAME: vinay-graph-dataproc-6731
   JAR_NAME: spark-graph-analytics-assembly-0.1.0.jar
 
@@ -126,7 +126,7 @@ jobs:
             --cluster="$CLUSTER_NAME" \
             --class=GraphAnalytics \
             --jars="gs://${BUCKET_NAME}/jars/${JAR_NAME}" \
-            --properties=spark.driver.memory=8g,spark.executor.memory=4g,spark.executor.cores=2,spark.sql.adaptive.enabled=false,spark.sql.maxPlanStringLength=10000 \
+            --properties=spark.driver.memory=4g,spark.driver.cores=1,spark.executor.instances=2,spark.executor.memory=2g,spark.executor.cores=1,spark.sql.shuffle.partitions=16,spark.default.parallelism=16,spark.sql.adaptive.enabled=true,spark.sql.maxPlanStringLength=10000 \
             -- \
             --edges="gs://${BUCKET_NAME}/data/sample/edges.csv" \
             --nodes="gs://${BUCKET_NAME}/data/sample/nodes.csv" \
