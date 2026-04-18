@@ -15,7 +15,7 @@ The project is designed to run both:
 - Locally on a laptop (for demo and evaluation)
 - On larger Spark environments (for bigger datasets)
 
-This README is written so anyone cloning from GitHub can understand and run the project end-to-end.
+
 
 ---
 
@@ -73,7 +73,7 @@ Expected columns:
 
 - src
 - dst
-- timestamp (required for temporal analytics; format like YYYY-MM-DD HH:mm:ss)
+- timestamp (required for temporal analytics format like YYYY-MM-DD HH:mm:ss)
 
 ### 5.2 nodes.csv
 Expected columns:
@@ -200,13 +200,127 @@ This project also includes an all-in-one runner:
 sbt "runMain GraphAnalytics --edges data/edges.csv --nodes data/nodes.csv --output output/local --iterations 12 --damping 0.85 --runCommunity true --runTemporal true --runScale true --runSkew true --topN 25 --topK 40 --sampleFraction 0.25 --heavyKeys 10 --saltBuckets 12 --scaleFractions 0.1,0.25,0.5,0.75,1.0"
 ```
 
-Use this if you want one execution to run all analyses.
+Use this one to run all analyses.
+
+---
+
+## 12. How to Run the Project on Dataproc (Recommended for Distributed Execution)
+
+This section explains how your professor can run the same project on Google Cloud Dataproc using the GitHub code.
+
+### Step 1: Build assembly JAR
+
+```bash
+sbt clean assembly
+```
+
+Expected output (example):
+
+- target/scala-2.12/spark-graph-analytics-assembly-0.1.0.jar
+
+### Step 2: Upload JAR and input files to GCS
+
+```bash
+gsutil cp target/scala-2.12/*assembly*.jar gs://<your-bucket>/jars/
+gsutil cp data/edges.csv gs://<your-bucket>/data/
+gsutil cp data/nodes.csv gs://<your-bucket>/data/
+```
+
+### Step 3: Submit Dataproc jobs (module-wise)
+
+Run each module using the same CLI from the local version, but with GCS paths.
+
+PageRank:
+
+```bash
+gcloud dataproc jobs submit spark \
+	--cluster=<your-cluster-name> \
+	--region=<your-region> \
+	--class=com.graphanalytics.app.Main \
+	--jars=gs://<your-bucket>/jars/<assembly-jar-name> \
+	--properties=spark.yarn.appMasterEnv.SPARK_MASTER=yarn,spark.executorEnv.SPARK_MASTER=yarn \
+	-- pagerank --edges gs://<your-bucket>/data/edges.csv --nodes gs://<your-bucket>/data/nodes.csv --output gs://<your-bucket>/output --iterations 12 --damping 0.85 --has-timestamp --top-n 25
+```
+
+Triangle/community:
+
+```bash
+gcloud dataproc jobs submit spark \
+	--cluster=<your-cluster-name> \
+	--region=<your-region> \
+	--class=com.graphanalytics.app.Main \
+	--jars=gs://<your-bucket>/jars/<assembly-jar-name> \
+	--properties=spark.yarn.appMasterEnv.SPARK_MASTER=yarn,spark.executorEnv.SPARK_MASTER=yarn \
+	-- triangle --edges gs://<your-bucket>/data/edges.csv --output gs://<your-bucket>/output --has-timestamp --top-k 40 --sample-fraction 0.25
+```
+
+Temporal PageRank:
+
+```bash
+gcloud dataproc jobs submit spark \
+	--cluster=<your-cluster-name> \
+	--region=<your-region> \
+	--class=com.graphanalytics.app.Main \
+	--jars=gs://<your-bucket>/jars/<assembly-jar-name> \
+	--properties=spark.yarn.appMasterEnv.SPARK_MASTER=yarn,spark.executorEnv.SPARK_MASTER=yarn \
+	-- temporal --edges gs://<your-bucket>/data/edges.csv --output gs://<your-bucket>/output --iterations 8 --damping 0.85
+```
+
+Skew benchmark:
+
+```bash
+gcloud dataproc jobs submit spark \
+	--cluster=<your-cluster-name> \
+	--region=<your-region> \
+	--class=com.graphanalytics.app.Main \
+	--jars=gs://<your-bucket>/jars/<assembly-jar-name> \
+	--properties=spark.yarn.appMasterEnv.SPARK_MASTER=yarn,spark.executorEnv.SPARK_MASTER=yarn \
+	-- skew --edges gs://<your-bucket>/data/edges.csv --output gs://<your-bucket>/output --has-timestamp --heavy-keys 10 --salt-buckets 12 --scale-fractions 0.1,0.25,0.5,0.75,1.0
+```
+
+### Step 4: Dataproc output location
+
+After successful execution, results are written under:
+
+- gs://<your-bucket>/output/pagerank_top
+- gs://<your-bucket>/output/pagerank_convergence
+- gs://<your-bucket>/output/pagerank_summary
+- gs://<your-bucket>/output/triangle_high_degree_clustering
+- gs://<your-bucket>/output/triangle_high_degree_clustering_approx
+- gs://<your-bucket>/output/triangle_summary
+- gs://<your-bucket>/output/temporal_pagerank_by_day
+- gs://<your-bucket>/output/temporal_volatility
+- gs://<your-bucket>/output/skew_scaling_summary
+
+---
+
+## 13. Environment Variables Reference
+
+This project can run without environment variables for local execution (because local commands pass all required arguments).
+
+For cluster execution, these are the relevant variables:
+
+- SPARK_MASTER: Spark master URL used by SparkFactory
+	- Local example: local[*]
+	- Dataproc/YARN example: yarn
+- JAVA_HOME: Java runtime path (recommended Java 11)
+
+How to pass SPARK_MASTER in Dataproc:
+
+```bash
+--properties=spark.yarn.appMasterEnv.SPARK_MASTER=yarn,spark.executorEnv.SPARK_MASTER=yarn
+```
+
+Notes:
+
+- Input/output data paths are provided as CLI arguments (`--edges`, `--nodes`, `--output`) and support both local filesystem and GCS paths.
+- If `--nodes` is omitted in PageRank, the node list is derived from edges.
 
 ---
 
 ## 10. Expected Output Folders
 
-After a successful full run, you should see folders under output/local similar to:
+After a successful full run, we can see folders under output/local similar to:
 
 - pagerank_top
 - pagerank_convergence
