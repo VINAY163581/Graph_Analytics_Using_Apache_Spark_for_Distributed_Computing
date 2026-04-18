@@ -155,7 +155,7 @@ cd Graph_Analytics_Using_Apache_Spark_for_Distributed_Computing
 
 ### Step 2: (Optional) Generate sample data
 
-If you want fresh synthetic data in data/sample:
+For fresh synthetic data in data/sample:
 
 ```bash
 chmod +x scripts/generate_sample_data.sh
@@ -206,7 +206,7 @@ Use this one to run all analyses.
 
 ## 12. How to Run the Project on Dataproc (Recommended for Distributed Execution)
 
-This section explains how your professor can run the same project on Google Cloud Dataproc using the GitHub code.
+This section explains how can run the same project on Google Cloud Dataproc using the GitHub code.
 
 ### Step 1: Build assembly JAR
 
